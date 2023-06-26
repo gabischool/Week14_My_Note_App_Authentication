@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { noteApi } from './api/NoteSlice'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { authSlice } from './api/AuthSlice'
-import { userSlice } from './api/userSlice'
+import { userSlice } from './api/UserSlice'
 
 export const store = configureStore({
   reducer: {
