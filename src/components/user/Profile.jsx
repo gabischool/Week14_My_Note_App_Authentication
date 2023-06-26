@@ -1,4 +1,4 @@
-import { useGetUserQuery } from "../../store/api/userSlice"
+import { useGetUserQuery } from "../../store/api/UserSlice"
 
 const Profile = () => {
     const {data: user = {}} = useGetUserQuery()

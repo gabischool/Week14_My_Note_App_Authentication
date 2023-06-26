@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGetNotesQuery, useDeleteNoteMutation } from "../store/api/NoteSlice";
-import { useGetUserQuery } from "../store/api/userSlice";
+import { useGetUserQuery } from "../store/api/UserSlice";
 
 function Notes() {
 
