@@ -1,48 +1,34 @@
-/* eslint-disable react/prop-types */
-
-import React, { useEffect } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { TiDocumentDelete } from "react-icons/ti";
+import { LuFileEdit } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { useGetNotesQuery, useDeleteNoteMutation } from "../store/api/NoteSlice";
-
-function Notes() {
-
-  const { data: notes = [], status, error } = useGetNotesQuery();
-  const [deleteNote] = useDeleteNoteMutation();
-
-  const deleteNoteHandler = (id) => {
-    deleteNote(id);
-  };
-  
-
+import { useGetNotesQuery } from "../store/api/NoteSlice";
+const Notes = () => {
+  const { data : notes = [] } = useGetNotesQuery();
+  console.log(notes);
   return (
-    <div className="flex flex-wrap justify-center mt-5">
-      {status === "loading" && <div className="relative p-5 bg-yellow-400 w-64 h-64 m-5 shadow-2xl overflow-hidden">Loading...</div>}
-      {status === "failed" && <div className="relative p-5 bg-yellow-400 w-64 h-64 m-5 shadow-2xl overflow-hidden">Sorry, {error}</div>}
-      {notes.map((note) =>  (
-        <div
-          className="relative bg-yellow-400 w-64 h-64 m-5 shadow-2xl overflow-hidden"
-          key={note.id}
-        >
-          <div className="p-5">
-            <h3 className="font-bold text-2xl mb-4">{note.title}</h3>
-            <p>{note.content}</p>
-          </div>
-          <div className="absolute bg-yellow-400 w-12 h-12 rotate-45 -top-6 -left-6" />
-          <div className="absolute bottom-0 left-0 right-0 flex justify-center p-4">
-          <Link to={`/edit/${note.id}`}>
-            <button className="mr-2">
-              <FaEdit size={20} />
-            </button>
-            </Link>
-            <button>
-              <FaTrash size={20} onClick={() => deleteNoteHandler(note.id)} />
-            </button>
-          </div>
-        </div>
-      ))}
+    <div className="mt-10 p-5 w-10/12 shadow-inner  lg:mx-auto ">
+      <p className="text-3xl p-3 my-3 text-slate-600">List notes </p>
+      <div className="grid grid-cols-3 gap-3">
+
+        {
+          notes.map(note => {
+            return (
+              <div className=" shadow p-3" key={note.id}>
+                <h1 className="text-xl">{note.title}</h1>
+                <p className="text-base">{note.content}</p>
+                <div className="flex flex-row border-t-2 p-2">
+                  <button><Link to={`/EditNote/${note.id}`}><LuFileEdit size={25} className="text-green-500" /></Link></button>
+                  <button><TiDocumentDelete size={25} className="text-red-500" /></button>
+                </div>
+              </div>
+            )
+          })
+        }
+
+      </div>
+
     </div>
-  );
+  )
 }
 
-export default Notes;
+export default Notes
