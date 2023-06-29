@@ -8,6 +8,7 @@ import Login from '../Auth/Login';
 import Register from '../Auth/Register';
 import PrivateRoutes from '../privateRoutes/PrivateRoutes';
 import { useState } from 'react';
+import Profile from './Profile';
 const Home = () => {
     const [ showMenu , setShowMenu ] = useState(false);
     const HandleShowMenu = ()=>{
@@ -26,7 +27,7 @@ const Home = () => {
                 <Sidebar HandleShowMenu={HandleShowMenu} HandleHideMenu={HandleHideMenu} showMenu={showMenu} />
                 <Routes>
                     <Route path="/" element={<Notes />} />
-
+                    <Route path='/Profile' element={<Profile/>}/>
                     <Route path="/AddNote" element={<PrivateRoutes />}>
                     <Route path="/AddNote" element={<AddNote />} />
                     </Route>
