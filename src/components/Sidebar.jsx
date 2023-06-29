@@ -5,7 +5,9 @@ import { BsPersonFillAdd } from "react-icons/bs"
 import { useState } from "react"
 import { useEffect } from "react"
 import Cookies from "js-cookie"
-const Sidebar = () => {
+import { FaUserCircle } from "react-icons/fa"
+import "./Style.css"
+const Sidebar = ({HandleHideMenu , showMenu}) => {
   const token = Cookies.get("token");
   const [auth, setAuth] = useState(false);
   const navigate = useNavigate();
@@ -20,28 +22,29 @@ const Sidebar = () => {
     navigate('/Login');
   }
   return (
-    <div className='bg-white border-r-2 border-l-2 shadow p-2 w-2/12 h-screen'>
+    <div className={showMenu ? ' show bg-white border-r-2 border-l-2 shadow p-2 w-full lg:w-4/12  fixed top-20 right-0 bottom-0 left-0 z-10 ' : 'hide shadow-lg lg:w-2/12 h-screen border-r-2 border-t-2 border-l-2'}>
 
       <nav>
-        <ul className='flex flex-col justify-start items-start  p-2 '>
-          <Link className="p-2 text-xl flex flex-row justify-start items-start" to="/" ><MdHome size={20} className="mt-1" /> <span className="ml-2">Home</span></Link>
+        <ul className='flex flex-col justify-start items-start  p-2' onClick={HandleHideMenu}>
+          <Link className={showMenu ? "show p-2 text-xl flex flex-row justify-start items-start":"hide p-2 text-xl flex flex-row justify-start items-start" } to="/" ><MdHome size={20} className="mt-1" /> <span className="ml-2">Home</span></Link>
 
           {auth && (
             <>
-            <Link className="p-2 text-xl flex flex-row justify-start items-start" to="/AddNote" ><MdNoteAdd size={20} className="mt-1" /> <span className="ml-2">Note</span></Link>
+            <Link className={showMenu ? "show p-2 text-xl flex flex-row justify-start items-start":"hide p-2 text-xl flex flex-row justify-start items-start" } to="/AddNote" ><MdNoteAdd size={20} className="mt-1" /> <span className="ml-2">Note</span></Link>
             <button onClick={handleLogOut}>
-            <Link  className="p-2 text-xl flex flex-row justify-start items-start" ><BiSolidLogInCircle size={20} className="mt-1" /> <span className="ml-2">Sign Out</span></Link>
+            <Link  className={showMenu ? "show p-2 text-xl flex flex-row justify-start items-start":"hide p-2 text-xl flex flex-row justify-start items-start" } ><BiSolidLogInCircle size={20} className="mt-1" /> <span className="ml-2">Sign Out</span></Link>
             </button>
             </>
           )}
 
           {!auth && (
             <>
-              <Link className="p-2 text-xl flex flex-row justify-start items-start" to="/Register" ><BsPersonFillAdd size={20} className="mt-1" /> <span className="ml-2">Sign Up</span></Link>
-              <Link className="p-2 text-xl flex flex-row justify-start items-start" to="/Login" ><BiSolidLogInCircle size={20} className="mt-1" /> <span className="ml-2">Sign In</span></Link>
+              <Link className={showMenu ? "show p-2 text-xl flex flex-row justify-start items-start":"hide p-2 text-xl flex flex-row justify-start items-start" } to="/Register" ><BsPersonFillAdd size={20} className="mt-1" /> <span className="ml-2">Sign Up</span></Link>
+              <Link className={showMenu ? "show p-2 text-xl flex flex-row justify-start items-start":"hide p-2 text-xl flex flex-row justify-start items-start" } to="/Login" ><BiSolidLogInCircle size={20} className="mt-1" /> <span className="ml-2">Sign In</span></Link>
             </>
           )}
-
+          <button>
+          <Link  className={showMenu ? "show p-2 text-xl flex flex-row justify-start items-start":"hide p-2 text-xl flex flex-row justify-start items-start" } ><FaUserCircle size={20} className="mt-1" /> <span className="ml-2">Profile</span></Link></button>
         </ul>
       </nav>
     </div>

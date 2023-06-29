@@ -12,7 +12,7 @@ export const NoteSlice = createApi({
         prepareHeaders : (Headers)=>{
             const token = getcookie();
             if(token){
-                Headers.set("authorization",`Bearer ${token}`);
+                Headers.set("Authorization",`Bearer ${token}`);
             }
             return Headers;
         }

@@ -21,13 +21,13 @@ const Register = () => {
       name: values.name,
       email: values.email,
       password : values.password
-    }).unwrap(  ).then( () => { navigate('/')})
+    }).then(() => { navigate('/Login')})
     .catch( (error) => {
       console.log(error)
     })
   }
   return (
-    <div className="mt-10 p-5 w-5/12 shadow-inner lg:mx-auto ">
+    <div className="mt-10 w-full p-5 lg:w-5/12 shadow-inner lg:mx-auto ">
       <p className="text-3xl p-3 my-3 text-slate-600">Sign Up </p>
       <div>
         <Formik

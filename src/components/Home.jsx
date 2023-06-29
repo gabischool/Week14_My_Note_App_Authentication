@@ -1,21 +1,29 @@
 import { Route, Routes } from 'react-router-dom';
 import Notes from './Notes';
 import Sidebar from './Sidebar'
-import { FaUserCircle } from "react-icons/fa";
+import { CiMenuKebab } from "react-icons/ci";
 import AddNote from './AddNote';
 import EditNote from './EditNote';
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
 import PrivateRoutes from '../privateRoutes/PrivateRoutes';
+import { useState } from 'react';
 const Home = () => {
+    const [ showMenu , setShowMenu ] = useState(false);
+    const HandleShowMenu = ()=>{
+      setShowMenu(!showMenu);
+    }
+    const HandleHideMenu = ()=>{
+      setShowMenu(false);
+    }
     return (
-        <div className='w-full lg:m-auto   p-4 bg-white shadow-lg'>
-            <div className='p-5 border-b-2  shadow flex flex-row justify-between items-center'>
+        <div className='w-full lg:p-4 bg-white shadow-lg'>
+            <div className='p-5 border-b-2 border-b-blue-600  shadow flex flex-row justify-between items-center'>
                 <h1 className='text-3xl'> Gabi Note App</h1>
-                <p><FaUserCircle size={28} /></p>
+                <p className='lg:hidden'><CiMenuKebab size={28} onClick={HandleShowMenu}/></p>
             </div>
             <div className='flex flex-row justify-start items-start gap-5'>
-                <Sidebar />
+                <Sidebar HandleShowMenu={HandleShowMenu} HandleHideMenu={HandleHideMenu} showMenu={showMenu} />
                 <Routes>
                     <Route path="/" element={<Notes />} />
 

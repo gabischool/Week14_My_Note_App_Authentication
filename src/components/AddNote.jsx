@@ -25,7 +25,7 @@ const AddNote = () => {
     })
   }
   return (
-    <div className="mt-10 p-5 w-10/12 shadow-inner lg:mx-auto ">
+    <div className="mt-10 p-5 w-full lg:w-10/12 shadow-inner lg:mx-auto ">
       <p className="text-3xl p-3 my-3 text-slate-600">Add notes </p>
       <div>
         <Formik
