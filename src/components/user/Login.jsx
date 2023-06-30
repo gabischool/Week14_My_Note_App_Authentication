@@ -23,9 +23,10 @@ const Login = () => {
     login({
       email: values.email,
       password: values.email
-    }).unwrap().then(() => {
-        navigate("/");
-        window.location.reload()
+    }).then(() => {
+        navigate("/")
+    }).catch((error) => {
+      console.log(error)
     })
     
   };

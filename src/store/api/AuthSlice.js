@@ -11,7 +11,7 @@ export const authSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_URL,
     }),
-    tagTypes: ["user"],
+    tagsTypes: ["User"],
 
     endpoints: (builder) => ({
 
@@ -22,15 +22,7 @@ export const authSlice = createApi({
                 method: "POST",
                 body: newUser
             }),
-            invalidatesTags: ["user"],
-            onQueryStarted: async (arg, {queryFulfilled}) => {
-                try {
-                    const result = await queryFulfilled
-                    setToken(result.data.token)
-                } catch (err) {
-                    console.log(err)
-                }
-            }
+            invalidatesTags: ["User"]
         }),
 
         // login 
@@ -40,10 +32,10 @@ export const authSlice = createApi({
                 method: "POST",
                 body: user
             }),
-            invalidatesTags: ["user"],
+            invalidatesTags: ["User"],
             onQueryStarted: async (arg, {queryFulfilled}) => {
                 try {
-                    const result = await queryFulfilled
+                    const result = await queryFulfilled;
                     setToken(result.data.token)
                 } catch (err) {
                     console.log(err)

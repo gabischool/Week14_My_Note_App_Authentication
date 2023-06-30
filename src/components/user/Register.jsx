@@ -26,9 +26,10 @@ const Register = () => {
       name: values.name,
       email: values.email,
       password: values.email
-    }).unwrap().then(() => {
-      navigate("/");
-      window.location.reload()
+    }).then(() => {
+      navigate("/login");
+    }).catch((error) => {
+      console.log(error)
     })
     
   };

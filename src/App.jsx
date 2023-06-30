@@ -13,26 +13,21 @@ import Profile from './components/user/Profile'
 function App() {
 
   const [menu , setMenu] = useState(false);
-  const [userInfo , setUserInfo] = useState(null);
+  const [userInfo , setUserInfo] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const token = Cookies.get("token")
 
   useEffect(() => {
-    const token = Cookies.get("token")
     if(token) {
-      setUserInfo(token)
+      setUserInfo(true)
     }
-  },[userInfo])
+  },[token])
 
   const handleLogout = () => {
-    try {
       Cookies.remove("token")
-      setUserInfo(null)
-      window.location.reload()
+      setUserInfo(false)
       navigate("/login")
-    } catch (err) {
-      console.log(err)
-    }
   }
 
   return (
@@ -53,7 +48,7 @@ function App() {
           {userInfo && (
           <>
           <li className={`md:py-0 px-4 py-3 text-2xl font-medium max-md:hover:bg-[#00BEFE] ${location.pathname === "/add_Note" ? "max-md:bg-[#00befe] max-md:text-white" : "max-md:bg-transparent max-md:text-white"} ${location.pathname == "/add_Note" ? "text-[#00BEFE]" : "text-slate-900"} transition-all cursor-pointer `}><Link to="/add_Note">Add Note</Link></li>
-          <li className={`md:py-0 px-4 py-3 text-2xl font-medium max-md:hover:bg-[#00BEFE] ${location.pathname === "/Profile" ? "max-md:bg-[#00BEFE] max-md:text-white" : "max-md:bg-transparent max-md:text-white"} ${location.pathname == "/Profile" ? "text-[#00BEFE]" : "text-slate-900"} transition-all cursor-pointer `}><Link to="/profile">Profile</Link></li>
+          <li className={`md:py-0 px-4 py-3 text-2xl font-medium max-md:hover:bg-[#00BEFE] ${location.pathname === "/profile" ? "max-md:bg-[#00BEFE] max-md:text-white" : "max-md:bg-transparent max-md:text-white"} ${location.pathname == "/profile" ? "text-[#00BEFE]" : "text-slate-900"} transition-all cursor-pointer `}><Link to="/profile">Profile</Link></li>
           <li className={`md:py-0 px-4 py-3 text-2xl font-medium max-md:hover:bg-[#00BEFE] transition-all cursor-pointer `}><Link onClick={handleLogout}>Logout</Link></li>
           </>
           )}
