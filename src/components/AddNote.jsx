@@ -2,8 +2,10 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useAddNoteMutation } from '../store/api/NoteSlice';
+import { useNavigate } from 'react-router-dom';
 
 const AddNote = () => {
+  const navigate = useNavigate()
 
   const [addNote ] = useAddNoteMutation();
 
@@ -23,7 +25,9 @@ const AddNote = () => {
     addNote({
       title: values.title,
       content: values.content,
-    });
+    }).unwrap().then(() => {
+      navigate("/")
+    })
     
 
     // Reset the form after submission
@@ -53,7 +57,7 @@ const AddNote = () => {
             <Field
               as="textarea"
               name="content"
-              placeholder="Body"
+              placeholder="content"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
             />
             <ErrorMessage name="content" component="div" className="text-red-500" />
@@ -61,7 +65,7 @@ const AddNote = () => {
 
           <button
             type="submit"
-            className="block w-full bg-yellow-400 text-black font-bold p-4 rounded-lg hover:bg-yellow-500"
+            className="block w-full bg-[#00BEFE] text-slate-900 font-bold p-4 rounded-lg hover:bg-[#00b2ff]"
           >
             Add Note
           </button>

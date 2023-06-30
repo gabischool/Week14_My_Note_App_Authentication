@@ -71,7 +71,7 @@ const EditNote = () => {
             <Field
               as="textarea"
               name="content"
-              placeholder="Body"
+              placeholder="content"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
             />
             <ErrorMessage name="content" component="div" className="text-red-500" />
@@ -79,7 +79,7 @@ const EditNote = () => {
 
           <button
             type="submit"
-            className="block w-full bg-yellow-400 text-black font-bold p-4 rounded-lg hover:bg-yellow-500"
+            className="block w-full bg-[#00BEFE] text-slate-900 font-bold p-4 rounded-lg hover:bg-[#00b2ff]"
           >
             Update Note
           </button>
