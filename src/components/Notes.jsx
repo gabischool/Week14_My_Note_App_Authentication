@@ -14,7 +14,7 @@ const Notes = () => {
     deleteNotes(id)
   }
   return (
-    <div className="mt-10 p-5 lg:w-10/12 shadow-inner  lg:mx-auto ">
+    <div className="mt-10 p-5 w-full lg:w-10/12 shadow-inner  lg:mx-auto ">
       <p className="text-3xl p-3 my-3 text-slate-600">List notes </p>
       <div className="grid lg:grid-cols-3 gap-3">
 
