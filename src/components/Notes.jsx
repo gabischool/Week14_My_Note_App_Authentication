@@ -4,11 +4,12 @@ import React, { useEffect } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGetNotesQuery, useDeleteNoteMutation } from "../store/api/NoteSlice";
-
+import { useGetUserQuery } from "../store/api/UserSlice";
 function Notes() {
 
   const { data: notes = [], status, error } = useGetNotesQuery();
   const [deleteNote] = useDeleteNoteMutation();
+  const  {data: user= {}} = useGetUserQuery()
 
   const deleteNoteHandler = (id) => {
     deleteNote(id);
@@ -29,6 +30,7 @@ function Notes() {
             <p>{note.content}</p>
           </div>
           <div className="absolute bg-yellow-400 w-12 h-12 rotate-45 -top-6 -left-6" />
+          {user.id === note.user_id && (
           <div className="absolute bottom-0 left-0 right-0 flex justify-center p-4">
           <Link to={`/edit/${note.id}`}>
             <button className="mr-2">
@@ -39,6 +41,7 @@ function Notes() {
               <FaTrash size={20} onClick={() => deleteNoteHandler(note.id)} />
             </button>
           </div>
+          )}
         </div>
       ))}
     </div>

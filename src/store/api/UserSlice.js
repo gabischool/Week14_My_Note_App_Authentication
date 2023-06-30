@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import BASE_URL from "./BaseUrl";
 
 // Helper function to get the token from the browser's cookie
-const getToken = () => {
+const getCookie = () => {
   return Cookies.get("token");
 };
 

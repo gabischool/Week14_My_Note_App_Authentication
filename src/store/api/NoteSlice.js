@@ -1,9 +1,27 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import BASE_URL from './BaseUrl'
+import Cookies from 'js-cookie'
+
+  const getCookies = () => {
+    return Cookies.get('token')
+    }
+
+
 
 export const noteApi = createApi({
     reducerPath: 'noteApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:9000' }),
+    baseQuery: fetchBaseQuery({ 
+    baseUrl: BASE_URL,
+    prepareHeaders: (headers) => {
+        const token = getCookies()
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`)
+        }
+        return headers;
+    },
     tagTypes: ['Note'],
+    }),
+
     endpoints: (builder) => ({
         getNotes: builder.query({
             query: () => '/notes',
@@ -35,9 +53,4 @@ export const noteApi = createApi({
     }),
 })
 
-export const {
-    useGetNotesQuery,
-    useAddNoteMutation,
-    useUpdateNoteMutation,
-    useDeleteNoteMutation,
-} = noteApi
+export const {useGetNotesQuery, useAddNoteMutation, useUpdateNoteMutation,useDeleteNoteMutation,} = noteApi
