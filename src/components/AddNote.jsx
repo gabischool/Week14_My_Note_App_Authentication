@@ -64,7 +64,7 @@ const AddNote = () => {
 
           <button
             type="submit"
-            className="block w-full bg-yellow-400 text-black font-bold p-4 rounded-lg hover:bg-yellow-500"
+            className=" block w-full bg-green-400 text-black font-bold p-4 rounded-lg hover:bg-blue-50"
           >
             Add Note
           </button>
