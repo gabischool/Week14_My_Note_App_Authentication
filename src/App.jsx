@@ -31,6 +31,7 @@ function App() {
   }, [token]);
 
   const handleLogout = () => {
+    Cookies.remove("token");
     setUserInfo(false);
     navigate("/login");
   };
