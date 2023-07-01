@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import React, { useEffect, useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useUpdateNoteMutation, useGetNotesQuery } from '../store/api/NoteSlice';
+import {
+  useUpdateNoteMutation,
+  useGetNotesQuery,
+} from "../store/api/NoteSlice";
 
 const EditNote = () => {
-
-  const [updateNote ] = useUpdateNoteMutation();
+  const [updateNote] = useUpdateNoteMutation();
   const { data: allNotes = [] } = useGetNotesQuery();
 
   const params = useParams();
   const navigate = useNavigate();
 
   const [initialValues, setInitialValues] = useState({
-    title: '',
-    content: '',
+    title: "",
+    content: "",
   });
 
-  
   useEffect(() => {
     const note = allNotes.find((note) => note.id === Number(params.id));
     if (note) {
@@ -29,32 +30,28 @@ const EditNote = () => {
     }
   }, [allNotes, params.id]);
 
-
-
   const validationSchema = Yup.object({
-    title: Yup.string().required('Title is required'),
-    content: Yup.string().required('Content is required'),
+    title: Yup.string().required("Title is required"),
+    content: Yup.string().required("Content is required"),
   });
 
   const handleSubmit = (values) => {
- 
     updateNote({
       id: Number(params.id),
       updatedNote: values,
-    })
+    });
 
     navigate("/");
-    
   };
 
   return (
     <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
+      <h2 className="text-center text-2xl mb-4">Edit Note</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
-        enableReinitialize
-      >
+        enableReinitialize>
         <Form>
           <div className="mb-5">
             <Field
@@ -64,23 +61,30 @@ const EditNote = () => {
               placeholder="Title"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
             />
-            <ErrorMessage name="title" component="div" className="text-red-500" />
+            <ErrorMessage
+              name="title"
+              component="div"
+              className="text-red-500"
+            />
           </div>
 
           <div className="mb-5">
             <Field
               as="textarea"
               name="content"
-              placeholder="Body"
+              placeholder="content"
               className="border border-gray-300 shadow p-3 w-full rounded mb-"
             />
-            <ErrorMessage name="content" component="div" className="text-red-500" />
+            <ErrorMessage
+              name="content"
+              component="div"
+              className="text-red-500"
+            />
           </div>
 
           <button
             type="submit"
-            className="block w-full bg-yellow-400 text-black font-bold p-4 rounded-lg hover:bg-yellow-500"
-          >
+            className="block w-full bg-[#EAB308] text-slate-900 font-bold p-4 rounded-lg hover:bg-[#00b2ff]">
             Update Note
           </button>
         </Form>
