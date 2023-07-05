@@ -1,0 +1,8 @@
+@media (max-width: 768px) {
+    .show {
+        display: block;
+    }
+    .hide {
+        display: none;
+    }
+}
