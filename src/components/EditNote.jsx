@@ -43,7 +43,7 @@ const EditNote = () => {
       updatedNote: values,
     })
 
-    navigate("/");
+    navigate("/notes");
     
   };
 
