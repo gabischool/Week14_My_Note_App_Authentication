@@ -4,24 +4,16 @@ import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGetNotesQuery, useDeleteNoteMutation } from "../store/api/NoteSlice";
-import Cookies from "js-cookie";
+import { useGetUserQuery } from "../store/api/UserSlice";
+//import Cookies from "js-cookie";
 
 function Notes() {
 
-  const [userInfo, setUserInfo] = useState(null);
-  
-
-  useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      setUserInfo(token);
-    }
-  }, [userInfo]);
-
-console.log(userInfo);
-
   const { data: notes = [], status, error } = useGetNotesQuery();
   const [deleteNote] = useDeleteNoteMutation();
+
+  const { data: user = {} } = useGetUserQuery();
+
 
   const deleteNoteHandler = (id) => {
     deleteNote(id);
@@ -43,7 +35,7 @@ console.log(userInfo);
           </div>
           <div className="absolute bg-yellow-400 w-12 h-12 rotate-45 -top-6 -left-6" />
           <div className="absolute bottom-0 left-0 right-0 flex justify-center p-4">
-            {userInfo &&
+            {user && user.id === note.user_id &&
            <>
           <Link to={`/edit/${note.id}`}>
             <button className="mr-2">
