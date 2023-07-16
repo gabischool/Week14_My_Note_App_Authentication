@@ -2,8 +2,11 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useAddNoteMutation } from '../store/api/NoteSlice';
+import { useNavigate } from "react-router-dom";
 
 const AddNote = () => {
+
+  const navigate = useNavigate();
 
   const [addNote ] = useAddNoteMutation();
 
@@ -23,8 +26,10 @@ const AddNote = () => {
     addNote({
       title: values.title,
       content: values.content,
-    });
-    
+    }).unwrap().then(() => {
+      navigate("/notes");
+    }
+    )
 
     // Reset the form after submission
     resetForm();

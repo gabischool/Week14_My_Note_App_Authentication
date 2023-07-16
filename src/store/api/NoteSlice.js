@@ -1,9 +1,26 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import Cookies from 'js-cookie';
+
+export const baseUrl = import.meta.env.VITE_BASE_LINK;
+
+const getToken = () => {
+    return Cookies.get("token");
+  };
 
 export const noteApi = createApi({
     reducerPath: 'noteApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:9000' }),
+    baseQuery: fetchBaseQuery({ 
+        baseUrl: baseUrl,
+    prepareHeaders: (headers) => {
+      const token = getToken();
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    }, 
+    }),
     tagTypes: ['Note'],
+
     endpoints: (builder) => ({
         getNotes: builder.query({
             query: () => '/notes',
@@ -11,7 +28,7 @@ export const noteApi = createApi({
         }),
         addNote: builder.mutation({
             query: (body) => ({
-                url: 'create_note',
+                url: '/create_note',
                 method: 'POST',
                 body,
             }),
@@ -19,7 +36,7 @@ export const noteApi = createApi({
         }),
         updateNote: builder.mutation({
             query: ({ id, updatedNote }) => ({
-                url: `update_note/${id}`,
+                url: `/update_note/${id}`,
                 method: 'PUT',
                 body: updatedNote,
             }),
@@ -27,9 +44,9 @@ export const noteApi = createApi({
         }),
         deleteNote: builder.mutation({
             query: (id) => ({
-                url: `delete_note/${id}`,
+                url: `/delete_note/${id}`,
                 method: 'DELETE',
-            }),
+            }), 
             invalidatesTags: ['Note'],
         }),
     }),
