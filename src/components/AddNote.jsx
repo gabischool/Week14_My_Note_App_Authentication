@@ -1,17 +1,19 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useAddNoteMutation } from '../store/api/NoteSlice';
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { useAddNoteMutation } from "../store/api/NoteSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddNote = () => {
 
   const [addNote ] = useAddNoteMutation();
+  const navigate = useNavigate();
 
+ 
   const initialValues = {
     title: '',
     content: '',
   };
-
   const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
     content: Yup.string().required('Content is required'),
@@ -19,54 +21,71 @@ const AddNote = () => {
 
   const handleSubmit = (values, { resetForm }) => {
     // Send the data to the server (localhost:9000/create_note)
-    console.log(values);
+   
     addNote({
       title: values.title,
       content: values.content,
+    }).unwrap().then(() => {
+      navigate("/");
+    }).catch((err) => {
+      console.log(err);
     });
-    
 
-    // Reset the form after submission
-    resetForm();
-  };
+  // Reset the form after submission
+  resetForm();
+
+};
 
   return (
-    <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <Form>
-          <div className="mb-5">
-            <Field
-              type="text"
-              id="title"
-              name="title"
-              placeholder="Title"
-              className="border border-gray-300 shadow p-3 w-full rounded mb-"
-            />
-            <ErrorMessage name="title" component="div" className="text-red-500" />
-          </div>
+    <div className="min-h-screen flex flex-row items-center justify-center bg-gray-200">
+      <div className="mx-auto rounded-lg bg-white p-10 shadow md:w-3/4 lg:w-1/2">
+      
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <Form>
+            <div className="mb-5">
+              <Field
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Title"
+                className="w-full rounded border border-gray-300 p-3 shadow"
+              />
+              <ErrorMessage
+                name="title"
+                component="div"
+                className="text-red-500"
+              />
+            </div>
+            <div className="mb-5">
+              <Field
+                as="textarea"
+                id="content"
+                name="content"
+                placeholder="content"
+                className="w-full rounded border border-gray-300 p-3 shadow"
+              />
+              <ErrorMessage
+                name="content"
+                component="div"
+                className="text-red-500"
+              />
+            </div>
+            
+          
 
-          <div className="mb-5">
-            <Field
-              as="textarea"
-              name="content"
-              placeholder="Body"
-              className="border border-gray-300 shadow p-3 w-full rounded mb-"
-            />
-            <ErrorMessage name="content" component="div" className="text-red-500" />
-          </div>
-
-          <button
-            type="submit"
-            className="block w-full bg-yellow-400 text-black font-bold p-4 rounded-lg hover:bg-yellow-500"
-          >
-            Add Note
-          </button>
-        </Form>
-      </Formik>
+            <button
+              type="submit"
+              className="mt-4 rounded-3xl bg-blue-400 px-12 py-3 text-white hover:bg-blue-500"
+            >
+              Add Note
+            </button>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 };
